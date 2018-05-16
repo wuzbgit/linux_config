@@ -1,0 +1,60 @@
+nerdtree树形目录插件能够在vim下浏览文件系统的所有文件，并能够打开文件。同时可以通过配置nerdtree过滤一些文件不被树形结构浏览
+
+准备工作：安装vundle
+
+NERD Tree安装配置
+1,安装
+vim ~/.vimrc
+Plugin 'scrooloose/nerdtree'
+
+2,配置
+vim ~/.vimrc
+let NERDTreeWinPos = "left"	"NERD Tree位置=左侧
+nmap <F9> :NERDTreeToggle<CR>	"使用F9打开NERDTree
+
+vim-fugitive安装配置
+可使用简单的git命令
+1,安装
+vim ~/.vimrc
+Plugin 'tpope/vim-fugitive'
+
+2,使用
+命令:Gdiff  就可以方便的查看本次修改和仓库里代码的改动
+
+Command-T
+Command-T 是一款很不错的 Vim 插件，该插件允许你在 Vim 中快速导航文件，以用于后续的编辑处理
+
+1,安装
+sudo apt install ruby ruby-devel
+vim ~/.vimrc
+Plugin 'wincent/command-t'
+保存后，vim命令模式下:PluginInstall
+
+在 ~/.vim/bundle/command-t目录下执行make生成command-t.vba
+编辑command-t.vba
+
+:so %
+
+这一步会生成编译ruby的必要文件
+cd ~/.vim/bundle/command-t/ruby/command-t
+
+ruby extconf.rb
+
+make
+
+2,配置
+"command-t
+"<Leader>b浏览Buffer
+nmap <Leader>b <Plug>(CommandTBuffer)
+"<Leader>f显示MRU文件
+nmap <Leader>f <Plug>(CommandTMRU)
+"搜索结果最大匹配数
+let g:CommandTMaxHeight = 25
+"搜索结果不区分大小写
+let g:CommandTIgnoreCase = 0
+"搜索结果不按反向排序，即最匹配的位于最顶部
+let g:CommandTMatchWindowReverse = 0
+"开启wildignore
+let g:CommandTWildIgnore=&wildignore
+"搜索结果匹配大小写
+"let g:CommandTSmartCase = 1

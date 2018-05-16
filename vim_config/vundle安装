@@ -1,0 +1,36 @@
+Vundlde 是一个开源的vim插件管理工具
+源地址 https://github.com/VundleVim/Vundle.vim
+安装步骤
+
+1,克隆项目到本地
+
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+2,配置vimrc文件
+
+	vim ~/.vimrc
+复制下方代码到该文件的最上面
+
+set nocompatible
+filetype off
+	set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+	Plugin 'VundleVim/Vundle.vim'
+call vundle#end()
+	filetype plugin indent on
+	开始安装：
+	打开vim
+
+	:PluginInstall
+3,如何使用
+
+	安装插件
+	使用的步骤非常简单。
+	举个栗子，比如我们想安装xxx插件，现在github找到他，比如地址是
+	https://github.com/author/xxx
+	那么只需要在~/.vimrc文件添加一行
+
+	Bundle 'author/xxx'
+	退出并重新打开vim，执行
+
+	:BundleInstall
+	就可以了。

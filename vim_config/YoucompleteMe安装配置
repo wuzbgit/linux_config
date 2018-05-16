@@ -1,0 +1,76 @@
+YouCompleteMe是一个google开源的vim自动补全插件
+源地址 https://github.com/Valloric/YouCompleteMe
+安装步骤
+
+1,前期准备
+vim版本大于7.4.143
+安装python2或3
+安装Vundle神器
+安装clang+llvm
+clang:
+llvm:LLVM是构架编译器(compiler)的框架系统，以C++编写而成，用于优化以任意程序语言编写的程序的编译时间(compile-time)、链接时间(link-time)、运行时间(run-time)以及空闲时间(idle-time)，对开发者保持开放，并兼容已有脚本
+
+YouCompleteMe根据clang对C，C++进行语义分析补全。YouComplete编译依赖于python库
+sudo apt-get install cmake
+sudo apt-get install python-dev
+sudo apt-get install python3-dev
+sudo apt install clang
+sudo apt install llvm
+
+2,使用vundle安装
+编辑~/.vimrc文件，添加
+
+Plugin 'Valloric/YouCompleteMe'
+进入vim，命令行模式输入
+
+:PluginInstall
+如果不能正常安装，则需进入~/vim/bundle，执行
+
+
+3,编译
+如果需要C家族语言支持就
+
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
+如果不需要C家族语言支持就
+
+cd ~/.vim/bundle/YouCompleteMe
+./install.py
+
+4,简单配置
+~/.vimrc文件中添加或修改：
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'  (语义补全)
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR> 	（跳转到声明处)
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>   	（跳转到定义处）
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR> (跳转到声明处或定义处)
+nmap <F4> :YcmDiags<CR>  	(打开location-list来显示警告和错误的信息)
+
+.ycm_extra_conf.py中添加需要的搜索路径
+比如:
+	'isystem',
+	'/usr/include',
+	'isystem',
+	'/usr/local/include',
+5,YCM-Generator安装和使用
+在当前目录临时使用的话就在当前目录另开一个.ycm_extra_conf.py,在这个python脚本加入文件路径可根据当前路径进行自动搜索
+这个插件可根据当前目录自动生成.ycmextra_conf.py
+
+1,安装
+vim ~/.vimrc
+Plugin 'rdnetto/YCM-Generator'
+在vim中运行命令：
+:PluginInstall
+
+2,使用
+./config_gen.py your/project/path
+
+3,实时运行脚本
+编写脚本，让它自动更新，以便跟上代码的变化，比如可以写如下内容的一个脚本：
+#!/bin/bash
+while :
+do
+    sleep 5
+    ~/.vim/bundle/YCM-Generator/config_gen.py -f ~/class/gtest/mysrc/
+done
+运行这个脚本，就可以让配置文件每隔5秒更新一次。其实观察下source insight，其实它也是每隔几秒就进行一次代码同步的。
